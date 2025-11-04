@@ -8,13 +8,13 @@ import "./index.css";
 import { login } from "./features/auth/authSlice";
 
 async function bootstrap() {
-  // Auto-login with seeded demo credentials if there's no token
+  // Auto-login with seeded demo credentials to bypass signin
   const state = store.getState();
   if (!state.auth.token) {
     try {
       await store.dispatch(login({ username: "demo", password: "password123" }));
     } catch (err) {
-      // ignore - user can still interact with UI to trigger login
+      // ignore - will show login page if auto-login fails
       console.warn("Auto-login failed:", err);
     }
   }

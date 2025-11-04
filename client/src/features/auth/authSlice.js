@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../lib/api";
+import { mockApi, isGitHubPages } from "../../lib/mockApi";
 
 const initialState = {
   token: localStorage.getItem("token") || null,
@@ -9,11 +10,17 @@ const initialState = {
 };
 
 export const login = createAsyncThunk("auth/login", async ({ username, password }) => {
+  if (isGitHubPages()) {
+    return await mockApi.login({ username, password });
+  }
   const res = await api.post("/api/auth/login", { username, password });
   return res;
 });
 
 export const register = createAsyncThunk("auth/register", async ({ username, password }) => {
+  if (isGitHubPages()) {
+    return await mockApi.register({ username, password });
+  }
   const res = await api.post("/api/auth/register", { username, password });
   return res;
 });
@@ -53,8 +60,4 @@ const slice = createSlice({
 });
 
 export const { logout } = slice.actions;
-
-// Selectors
-export const selectIsAuthenticated = (state) => !!state.auth.token;
-
 export default slice.reducer;

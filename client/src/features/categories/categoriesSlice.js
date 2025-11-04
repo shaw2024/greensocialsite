@@ -1,7 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../lib/api";
+import { mockApi, isGitHubPages } from "../../lib/mockApi";
 
 export const fetchCategories = createAsyncThunk("categories/fetch", async () => {
+  if (isGitHubPages()) {
+    return await mockApi.getCategories();
+  }
   return api.get("/api/categories");
 });
 

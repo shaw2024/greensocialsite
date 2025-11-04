@@ -53,4 +53,8 @@ const slice = createSlice({
 });
 
 export const { logout } = slice.actions;
+
+// Selectors
+export const selectIsAuthenticated = (state) => !!state.auth.token;
+
 export default slice.reducer;

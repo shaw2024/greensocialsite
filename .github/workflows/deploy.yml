@@ -3,8 +3,6 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 permissions:
   contents: read
@@ -41,6 +39,7 @@ jobs:
       run: |
         cd client
         NODE_ENV=production npm run build
+        cp dist/index.html dist/404.html
     
     - name: Setup Pages
       uses: actions/configure-pages@v4

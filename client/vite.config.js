@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/greensocialsite/",
+  base: process.env.NODE_ENV === 'production' ? "/greensocialsite/" : "/",
   build: {
     outDir: "dist",
     assetsDir: "assets"

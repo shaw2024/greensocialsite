@@ -19,18 +19,55 @@ export default function Layout() {
     setMobileMenuOpen(false);
   };
 
-  const closeMobileMenu = () => setMobileMenuOpen(false);
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+    document.body.style.overflow = 'unset';
+  };
+  
+  const openMobileMenu = () => {
+    setMobileMenuOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+  
+  // Close menu on escape key
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && mobileMenuOpen) {
+        closeMobileMenu();
+      }
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [mobileMenuOpen]);
 
   const SidebarContent = ({ mobile = false }) => (
     <div className={`${mobile ? 'mobile-sidebar' : 'sidebar'} ${mobile && mobileMenuOpen ? 'open' : ''}`}>
-      <div>
-        <h3 style={{ margin: '0 0 10px 0', color: 'var(--primary-green)', fontSize: '1.5rem' }}>
-          🌱 GreenSocialSite
-        </h3>
-        <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-          {username ? <>Welcome back, <strong>{username}</strong></> : <>Hello, Guest</>}
+      {!mobile && (
+        <div>
+          <h3 style={{ margin: '0 0 10px 0', color: 'var(--primary-green)', fontSize: '1.5rem' }}>
+            🌱 GreenSocialSite
+          </h3>
+          <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+            {username ? <>Welcome back, <strong>{username}</strong></> : <>Hello, Guest</>}
+          </div>
         </div>
-      </div>
+      )}
+      
+      {mobile && (
+        <div style={{ 
+          textAlign: 'center', 
+          paddingBottom: 'var(--spacing-lg)', 
+          borderBottom: '1px solid var(--border-light)', 
+          marginBottom: 'var(--spacing-lg)' 
+        }}>
+          <h3 style={{ margin: '0 0 var(--spacing-xs) 0', color: 'var(--primary-green)', fontSize: '1.3rem' }}>
+            🌱 Menu
+          </h3>
+          <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+            {username ? <>Welcome, <strong>{username}</strong></> : <>Hello, Guest</>}
+          </div>
+        </div>
+      )}
 
       {/* Social Navigation */}
       <nav>
@@ -94,6 +131,32 @@ export default function Layout() {
         </div>
       </nav>
 
+      {/* Close button for mobile */}
+      {mobile && (
+        <button
+          onClick={closeMobileMenu}
+          style={{
+            position: 'absolute',
+            top: 'var(--spacing-md)',
+            right: 'var(--spacing-md)',
+            background: 'none',
+            border: 'none',
+            color: 'var(--text-secondary)',
+            fontSize: '1.5rem',
+            cursor: 'pointer',
+            padding: 'var(--spacing-xs)',
+            borderRadius: '50%',
+            width: '32px',
+            height: '32px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          ×
+        </button>
+      )}
+      
       {/* User Actions */}
       <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '10px' }}>
         {username ? (
@@ -157,11 +220,52 @@ export default function Layout() {
       {/* Mobile Navigation Header */}
       <header className="mobile-nav">
         <button 
-          className="mobile-menu-btn"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="hamburger-btn"
+          onClick={() => mobileMenuOpen ? closeMobileMenu() : openMobileMenu()}
           aria-label="Toggle menu"
+          style={{
+            background: 'none',
+            border: 'none',
+            padding: 'var(--spacing-sm)',
+            cursor: 'pointer',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '40px',
+            height: '40px'
+          }}
         >
-          ☰
+          <span style={{
+            display: 'block',
+            width: '25px',
+            height: '3px',
+            background: 'var(--primary-green)',
+            margin: '3px 0',
+            borderRadius: '2px',
+            transition: 'all 0.3s ease',
+            transform: mobileMenuOpen ? 'rotate(45deg) translate(5px, 5px)' : 'none'
+          }}></span>
+          <span style={{
+            display: 'block',
+            width: '25px',
+            height: '3px',
+            background: 'var(--primary-green)',
+            margin: '3px 0',
+            borderRadius: '2px',
+            transition: 'all 0.3s ease',
+            opacity: mobileMenuOpen ? 0 : 1
+          }}></span>
+          <span style={{
+            display: 'block',
+            width: '25px',
+            height: '3px',
+            background: 'var(--primary-green)',
+            margin: '3px 0',
+            borderRadius: '2px',
+            transition: 'all 0.3s ease',
+            transform: mobileMenuOpen ? 'rotate(-45deg) translate(7px, -6px)' : 'none'
+          }}></span>
         </button>
         <h2 style={{ color: 'var(--primary-green)', margin: 0, fontSize: '1.2rem' }}>
           🌱 GreenSocialSite
@@ -179,8 +283,10 @@ export default function Layout() {
       <SidebarContent mobile={true} />
 
       <div className="app-layout">
-        {/* Desktop Sidebar */}
-        <SidebarContent />
+        {/* Desktop Sidebar - only show on desktop */}
+        <div className="sidebar-desktop">
+          <SidebarContent />
+        </div>
         
         <main className="main-content">
           <Outlet />

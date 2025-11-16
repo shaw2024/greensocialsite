@@ -142,13 +142,23 @@ input:focus, textarea:focus {
   box-sizing: border-box;
 }
 
-.mobile-menu-btn {
+.hamburger-btn {
   background: none;
   border: none;
   color: var(--text-primary);
-  font-size: 1.5rem;
   padding: var(--spacing-sm);
   cursor: pointer;
+  position: relative;
+  z-index: 1001;
+}
+
+.hamburger-btn:hover span {
+  background: var(--primary-green) !important;
+}
+
+.hamburger-btn:focus {
+  outline: 2px solid var(--primary-green);
+  outline-offset: 2px;
 }
 
 .mobile-sidebar {
@@ -160,10 +170,11 @@ input:focus, textarea:focus {
   height: calc(100vh - var(--mobile-header-height));
   background: var(--white);
   z-index: 999;
-  transition: left 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   overflow-y: auto;
-  padding: var(--spacing-md);
+  padding: var(--spacing-lg) var(--spacing-md);
   box-sizing: border-box;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .mobile-sidebar.open {
@@ -180,7 +191,8 @@ input:focus, textarea:focus {
   z-index: 998;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  backdrop-filter: blur(2px);
 }
 
 .mobile-overlay.open {
@@ -199,7 +211,37 @@ input:focus, textarea:focus {
   overflow-x: hidden;
 }
 
-.sidebar {
+/* Desktop-only elements */
+@media (min-width: 769px) {
+  .mobile-nav {
+    display: none !important;
+  }
+  
+  .mobile-sidebar {
+    display: none !important;
+  }
+  
+  .mobile-overlay {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-nav {
+    display: none !important;
+  }
+  
+  .mobile-sidebar {
+    display: none !important;
+  }
+  
+  .mobile-overlay {
+    display: none !important;
+  }
+}
+
+.sidebar,
+.sidebar-desktop {
   padding: var(--spacing-lg);
   border-right: 1px solid var(--border-light);
   background: var(--white);
@@ -313,13 +355,18 @@ input:focus, textarea:focus {
   }
   
   .app-layout {
-    grid-template-columns: 1fr;
+    display: block !important;
     width: 100vw;
     overflow-x: hidden;
   }
   
-  .sidebar {
-    display: none;
+  .sidebar,
+  .sidebar-desktop {
+    display: none !important;
+  }
+  
+  .app-layout {
+    grid-template-columns: 1fr !important;
   }
   
   .mobile-nav {
@@ -374,6 +421,24 @@ input:focus, textarea:focus {
   .nav-link {
     padding: var(--spacing-md);
     font-size: 1rem;
+    border-radius: var(--border-radius);
+    transition: all 0.2s ease;
+  }
+  
+  .nav-link:hover {
+    background: var(--light-green);
+    transform: translateX(4px);
+  }
+  
+  /* Mobile sidebar improvements */
+  .mobile-sidebar .nav-section {
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .mobile-sidebar h4 {
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
   }
 }
 
@@ -416,6 +481,13 @@ input:focus, textarea:focus {
 
 /* Additional mobile-specific styles */
 @media (max-width: 768px) {
+  /* Prevent body scroll when menu is open */
+  body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
+  
   /* Messages mobile layout - stack vertically */
   .page-container > div[style*="gridTemplateColumns"] {
     display: flex !important;
@@ -452,5 +524,28 @@ input:focus, textarea:focus {
   /* User cards responsive */
   .user-card {
     margin-bottom: var(--spacing-md);
+  }
+  
+  /* Hamburger menu specific styles */
+  .mobile-sidebar.open {
+    left: 0;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Smooth mobile nav transitions */
+  .mobile-nav {
+    transition: all 0.3s ease;
+  }
+  
+  /* Better mobile sidebar content spacing */
+  .mobile-sidebar .nav-section .nav-link {
+    padding: var(--spacing-md) var(--spacing-lg);
+    margin-bottom: var(--spacing-xs);
+    border-left: 3px solid transparent;
+  }
+  
+  .mobile-sidebar .nav-section .nav-link:hover {
+    border-left-color: var(--primary-green);
+    background: var(--light-green);
   }
 }

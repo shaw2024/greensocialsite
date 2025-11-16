@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function Dashboard() {
   const username = useSelector((s) => s.auth.username);
+  const isDemo = username === 'demo';
   
   const quickStats = {
     totalMembers: 1247,
@@ -21,16 +22,54 @@ export default function Dashboard() {
 
   return (
     <div className="page-container">
+      {/* Demo Mode Notification */}
+      {isDemo && (
+        <div style={{
+          background: "linear-gradient(45deg, #ffd700, #ffed4a)",
+          color: "#333",
+          padding: "12px 20px",
+          borderRadius: "8px",
+          marginBottom: "20px",
+          textAlign: "center",
+          border: "1px solid #f7dc00",
+          boxShadow: "0 2px 8px rgba(255, 215, 0, 0.3)"
+        }}>
+          <strong>🎉 Demo Mode Active!</strong> You're exploring GreenSocialSite with full access to all features. 
+          <Link to="/register" style={{ marginLeft: "10px", color: "#2d5a27", fontWeight: "bold" }}>
+            Create Account →
+          </Link>
+        </div>
+      )}
+      
       {/* Welcome Header */}
       <div className="card" style={{ 
         background: "linear-gradient(135deg, var(--primary-green), #4a7c59)", 
         color: "var(--white)", 
         textAlign: "center"
       }}>
-        <h1>Welcome back, {username}! 🌍</h1>
+        <h1>Welcome{username ? ` back, ${username}` : " to GreenSocialSite"}! 🌍</h1>
         <p style={{ margin: 0, fontSize: "1.1rem", opacity: 0.9 }}>
           Connect with eco-warriors, share green living tips, and make a positive impact together
         </p>
+        {!username && (
+          <div style={{ marginTop: "20px" }}>
+            <Link 
+              to="/login" 
+              style={{
+                background: "var(--white)",
+                color: "var(--primary-green)",
+                padding: "12px 24px",
+                borderRadius: "6px",
+                textDecoration: "none",
+                fontWeight: "bold",
+                display: "inline-block",
+                transition: "all 0.3s ease"
+              }}
+            >
+              🚀 Get Started - Quick Access
+            </Link>
+          </div>
+        )}
       </div>
 
       {/* Quick Stats */}

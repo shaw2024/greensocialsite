@@ -109,6 +109,33 @@ export default function Register() {
 
       <div style={{ textAlign: "center", marginTop: "20px" }}>
         <p>Already have an account? <Link to="/login">Sign in here</Link></p>
+        
+        {/* Quick Access Button */}
+        <div style={{ 
+          marginTop: "20px", 
+          padding: "15px", 
+          background: "var(--light-green)", 
+          borderRadius: "6px",
+          border: "1px solid var(--primary-green)"
+        }}>
+          <p style={{ margin: "0 0 10px 0", fontSize: "0.9rem", color: "var(--text-secondary)" }}>
+            Want to explore first?
+          </p>
+          <Link 
+            to="/login"
+            style={{
+              background: "var(--primary-green)",
+              color: "var(--white)",
+              padding: "8px 16px",
+              borderRadius: "4px",
+              textDecoration: "none",
+              fontSize: "0.9rem",
+              fontWeight: "500"
+            }}
+          >
+            🌱 Quick Access Demo
+          </Link>
+        </div>
       </div>
     </div>
   );

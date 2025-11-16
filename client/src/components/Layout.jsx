@@ -179,12 +179,36 @@ export default function Layout() {
           </button>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <button
+              onClick={() => {
+                // Auto-login as demo user
+                localStorage.setItem('token', 'demo-token');
+                localStorage.setItem('username', 'demo');
+                window.location.reload();
+                if (mobile) closeMobileMenu();
+              }}
+              style={{
+                textDecoration: 'none',
+                color: 'var(--white)',
+                background: 'linear-gradient(135deg, var(--primary-green), #4a7c59)',
+                padding: '10px 12px',
+                borderRadius: 'var(--border-radius-sm)',
+                textAlign: 'center',
+                fontSize: '0.9rem',
+                fontWeight: 'bold',
+                border: 'none',
+                cursor: 'pointer',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+              }}
+            >
+              🚀 Quick Access Demo
+            </button>
             <Link
               to="/login"
               style={{
                 textDecoration: 'none',
-                color: 'var(--white)',
-                background: 'var(--primary-green)',
+                color: 'var(--primary-green)',
+                border: '1px solid var(--primary-green)',
                 padding: '8px 12px',
                 borderRadius: 'var(--border-radius-sm)',
                 textAlign: 'center',
@@ -198,8 +222,8 @@ export default function Layout() {
               to="/register"
               style={{
                 textDecoration: 'none',
-                color: 'var(--primary-green)',
-                border: '1px solid var(--primary-green)',
+                color: 'var(--text-secondary)',
+                border: '1px solid var(--border-light)',
                 padding: '8px 12px',
                 borderRadius: 'var(--border-radius-sm)',
                 textAlign: 'center',

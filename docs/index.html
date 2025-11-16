@@ -12,7 +12,7 @@
   <body>
     <div id="root"></div>
     <script>
-      // GitHub Pages SPA redirect handling
+      // GitHub Pages SPA redirect handling - decode the redirected path
       (function(l) {
         if (l.search[1] === '/' ) {
           var decoded = l.search.slice(1).split('&').map(function(s) { 

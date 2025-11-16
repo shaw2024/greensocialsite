@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/greensocialsite/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GreenSocialSite</title>
-  <script type="module" crossorigin src="/greensocialsite/assets/index-Cu7rT1wJ.js"></script>
-  <link rel="stylesheet" crossorigin href="/greensocialsite/assets/index-B_IxEV1T.css">
-</head>
-<body>
-  <div id="root"></div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <title>GreenSocialSite - Sustainable Community</title>
+    <script type="module" crossorigin src="/greensocialsite/assets/index-D3mZhzwy.js"></script>
+    <link rel="stylesheet" crossorigin href="/greensocialsite/assets/index--GN-qraN.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      // GitHub Pages SPA redirect - send to index.html with path info
+      sessionStorage.redirect = location.pathname.slice(0, -1) + location.search + location.hash;
+    </script>
+    <script>location.replace('/greensocialsite/')</script>
+  </body>
 </html>

@@ -58,7 +58,7 @@ export default function Profile() {
   if (!profile) return <div>Loading...</div>;
 
   return (
-    <div style={{ maxWidth: "800px", margin: "0 auto", padding: "20px" }}>
+    <div className="page-container" style={{ maxWidth: "800px" }}>
       {/* Profile Header */}
       <div style={{ 
         background: "linear-gradient(135deg, #2d5a27, #4a7c59)", 

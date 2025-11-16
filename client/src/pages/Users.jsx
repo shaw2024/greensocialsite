@@ -127,7 +127,7 @@ export default function Users() {
     );
 
   return (
-    <div style={{ maxWidth: "800px", margin: "0 auto", padding: "20px" }}>
+    <div className="page-container">
       <h1 style={{ color: "#2d5a27", marginBottom: "25px" }}>Community</h1>
       
       {/* Search Bar */}

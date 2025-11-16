@@ -108,16 +108,11 @@ export default function Feed() {
   });
 
   return (
-    <div style={{ maxWidth: "700px", margin: "0 auto", padding: "20px" }}>
-      <h1 style={{ color: "#2d5a27", marginBottom: "25px" }}>Social Feed</h1>
+    <div className="page-container" style={{ maxWidth: "700px" }}>
+      <h1 style={{ color: "var(--primary-green)" }}>Social Feed</h1>
       
       {/* Post Creation */}
-      <div style={{ 
-        background: "white", 
-        padding: "20px", 
-        borderRadius: "12px", 
-        marginBottom: "20px",
-        border: "1px solid #e0e0e0",
+      <div className="card" style={{
         boxShadow: "0 2px 4px rgba(0,0,0,0.1)"
       }}>
         <div style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>

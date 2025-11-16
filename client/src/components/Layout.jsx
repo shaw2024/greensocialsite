@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "../features/categories/categoriesSlice";
@@ -9,144 +9,183 @@ export default function Layout() {
   const categories = useSelector((s) => s.categories.items || []);
   const username = useSelector((s) => s.auth.username);
   const navigate = useNavigate();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => { dispatch(fetchCategories()); }, [dispatch]);
 
-  const doLogout = () => { dispatch(logout()); navigate('/login'); };
+  const doLogout = () => { 
+    dispatch(logout()); 
+    navigate('/login'); 
+    setMobileMenuOpen(false);
+  };
 
-  return (
-    <div style={{ display: 'grid', gridTemplateColumns: '260px 1fr', minHeight: '100vh', background: '#f8f9fa' }}>
-      <aside style={{ 
-        padding: '20px', 
-        borderRight: '1px solid #ddd', 
-        background: 'white',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '20px'
-      }}>
-        <div>
-          <h3 style={{ margin: '0 0 10px 0', color: '#2d5a27', fontSize: '1.5rem' }}>🌱 GreenSocialSite</h3>
-          <div style={{ color: '#666', fontSize: '0.9rem' }}>
-            {username ? <>Welcome back, <strong>{username}</strong></> : <>Hello, Guest</>}
-          </div>
+  const closeMobileMenu = () => setMobileMenuOpen(false);
+
+  const SidebarContent = ({ mobile = false }) => (
+    <div className={`${mobile ? 'mobile-sidebar' : 'sidebar'} ${mobile && mobileMenuOpen ? 'open' : ''}`}>
+      <div>
+        <h3 style={{ margin: '0 0 10px 0', color: 'var(--primary-green)', fontSize: '1.5rem' }}>
+          🌱 GreenSocialSite
+        </h3>
+        <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+          {username ? <>Welcome back, <strong>{username}</strong></> : <>Hello, Guest</>}
         </div>
+      </div>
 
-        {/* Social Navigation */}
-        <nav>
-          <h4 style={{ margin: '0 0 12px 0', color: '#555', fontSize: '0.9rem', textTransform: 'uppercase' }}>Social</h4>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <Link to="/" style={{ 
-              textDecoration: 'none', 
-              color: '#333', 
-              padding: '8px 12px', 
-              borderRadius: '6px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px'
-            }}>
-              🏠 Dashboard
-            </Link>
-            <Link to="/feed" style={{ 
-              textDecoration: 'none', 
-              color: '#333', 
-              padding: '8px 12px', 
-              borderRadius: '6px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px'
-            }}>
-              📰 Feed
-            </Link>
-            <Link to="/users" style={{ 
-              textDecoration: 'none', 
-              color: '#333', 
-              padding: '8px 12px', 
-              borderRadius: '6px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px'
-            }}>
-              👥 Community
-            </Link>
-            <Link to="/messages" style={{ 
-              textDecoration: 'none', 
-              color: '#333', 
-              padding: '8px 12px', 
-              borderRadius: '6px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px'
-            }}>
-              💬 Messages
-            </Link>
-            <Link to="/profile" style={{ 
-              textDecoration: 'none', 
-              color: '#333', 
-              padding: '8px 12px', 
-              borderRadius: '6px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px'
-            }}>
-              👤 Profile
-            </Link>
-          </div>
-        </nav>
+      {/* Social Navigation */}
+      <nav>
+        <h4 style={{ 
+          margin: '0 0 12px 0', 
+          color: 'var(--text-secondary)', 
+          fontSize: '0.9rem', 
+          textTransform: 'uppercase',
+          fontWeight: '600'
+        }}>
+          Social
+        </h4>
+        <div className="nav-section">
+          <Link to="/" className="nav-link" onClick={mobile ? closeMobileMenu : undefined}>
+            🏠 Dashboard
+          </Link>
+          <Link to="/feed" className="nav-link" onClick={mobile ? closeMobileMenu : undefined}>
+            📱 Feed
+          </Link>
+          <Link to="/users" className="nav-link" onClick={mobile ? closeMobileMenu : undefined}>
+            👥 Community
+          </Link>
+          <Link to="/messages" className="nav-link" onClick={mobile ? closeMobileMenu : undefined}>
+            💬 Messages
+          </Link>
+          <Link to="/profile" className="nav-link" onClick={mobile ? closeMobileMenu : undefined}>
+            👤 Profile
+          </Link>
+        </div>
+      </nav>
 
-        {/* Categories Navigation */}
-        <nav>
-          <h4 style={{ margin: '0 0 12px 0', color: '#555', fontSize: '0.9rem', textTransform: 'uppercase' }}>Topics</h4>
-          <div style={{ maxHeight: '200px', overflow: 'auto', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            {categories.map(c => (
-              <Link key={c._id} to={`/category/${c._id}`} style={{ 
-                textDecoration: 'none', 
-                color: '#666', 
-                padding: '6px 12px', 
-                borderRadius: '4px',
-                fontSize: '0.9rem'
-              }}>
-                {c.name}
-              </Link>
-            ))}
-          </div>
-        </nav>
+      {/* Categories */}
+      <nav>
+        <h4 style={{ 
+          margin: '0 0 12px 0', 
+          color: 'var(--text-secondary)', 
+          fontSize: '0.9rem', 
+          textTransform: 'uppercase',
+          fontWeight: '600'
+        }}>
+          Topics
+        </h4>
+        <div style={{ 
+          maxHeight: '200px', 
+          overflow: 'auto', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          gap: '6px' 
+        }}>
+          {categories.map((c) => (
+            <Link 
+              key={c._id} 
+              to={`/category/${c._id}`} 
+              className="nav-link"
+              style={{ fontSize: '0.9rem', padding: '6px 12px' }}
+              onClick={mobile ? closeMobileMenu : undefined}
+            >
+              🌿 {c.name}
+            </Link>
+          ))}
+        </div>
+      </nav>
 
-        {/* Actions */}
-        <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          <button 
-            onClick={() => navigate('/new')}
+      {/* User Actions */}
+      <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        {username ? (
+          <button
+            onClick={doLogout}
             style={{
-              padding: '10px 15px',
-              background: '#2d5a27',
-              color: 'white',
-              border: 'none',
-              borderRadius: '6px',
+              background: 'none',
+              border: '1px solid var(--border-light)',
+              color: 'var(--text-primary)',
+              padding: '8px 12px',
+              borderRadius: 'var(--border-radius-sm)',
               cursor: 'pointer',
-              fontWeight: 'bold'
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              fontSize: '0.9rem'
             }}
           >
-            ➕ New Question
+            🚪 Logout
           </button>
-          {username && (
-            <button 
-              onClick={doLogout} 
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <Link
+              to="/login"
               style={{
-                padding: '8px 15px',
-                background: 'transparent',
-                color: '#666',
-                border: '1px solid #ddd',
-                borderRadius: '6px',
-                cursor: 'pointer'
+                textDecoration: 'none',
+                color: 'var(--white)',
+                background: 'var(--primary-green)',
+                padding: '8px 12px',
+                borderRadius: 'var(--border-radius-sm)',
+                textAlign: 'center',
+                fontSize: '0.9rem'
               }}
+              onClick={mobile ? closeMobileMenu : undefined}
             >
-              🚪 Logout
-            </button>
-          )}
-        </div>
-      </aside>
-      <main style={{ padding: '0', minHeight: '100vh', overflow: 'auto' }}>
-        <Outlet />
-      </main>
+              🔑 Login
+            </Link>
+            <Link
+              to="/register"
+              style={{
+                textDecoration: 'none',
+                color: 'var(--primary-green)',
+                border: '1px solid var(--primary-green)',
+                padding: '8px 12px',
+                borderRadius: 'var(--border-radius-sm)',
+                textAlign: 'center',
+                fontSize: '0.9rem'
+              }}
+              onClick={mobile ? closeMobileMenu : undefined}
+            >
+              📝 Register
+            </Link>
+          </div>
+        )}
+      </div>
     </div>
+  );
+
+  return (
+    <>
+      {/* Mobile Navigation Header */}
+      <header className="mobile-nav">
+        <button 
+          className="mobile-menu-btn"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          ☰
+        </button>
+        <h2 style={{ color: 'var(--primary-green)', margin: 0, fontSize: '1.2rem' }}>
+          🌱 GreenSocialSite
+        </h2>
+        <div style={{ width: '40px' }}></div>
+      </header>
+
+      {/* Mobile Sidebar Overlay */}
+      <div 
+        className={`mobile-overlay ${mobileMenuOpen ? 'open' : ''}`}
+        onClick={closeMobileMenu}
+      ></div>
+
+      {/* Mobile Sidebar */}
+      <SidebarContent mobile={true} />
+
+      <div className="app-layout">
+        {/* Desktop Sidebar */}
+        <SidebarContent />
+        
+        <main className="main-content">
+          <Outlet />
+        </main>
+      </div>
+    </>
   );
 }

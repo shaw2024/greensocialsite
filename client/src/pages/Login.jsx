@@ -30,14 +30,15 @@ export default function Login() {
   };
 
   return (
-    <div style={{ maxWidth: "400px", margin: "50px auto", padding: "20px" }}>
-      <h2>Sign In to GreenSocialSite</h2>
-      
-      {error && (
-        <div style={{ background: "#fee", color: "#c33", padding: "10px", marginBottom: "20px", borderRadius: "4px" }}>
-          {error}
-        </div>
-      )}
+    <div className="page-container" style={{ maxWidth: "400px" }}>
+      <div className="card">
+        <h2 style={{ textAlign: "center", color: "var(--primary-green)" }}>Sign In to GreenSocialSite</h2>
+        
+        {error && (
+          <div className="error">
+            {error}
+          </div>
+        )}
 
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: "15px" }}>
@@ -81,11 +82,12 @@ export default function Login() {
 
       <div style={{ textAlign: "center", marginTop: "20px" }}>
         <p>Don't have an account? <Link to="/register">Sign up here</Link></p>
-        <div style={{ marginTop: "15px", padding: "10px", background: "#f0f8ff", borderRadius: "4px", fontSize: "14px" }}>
+        <div style={{ marginTop: "15px", padding: "10px", background: "var(--light-green)", borderRadius: "4px", fontSize: "14px" }}>
           <strong>Demo Credentials:</strong><br />
           Username: demo<br />
           Password: password123
         </div>
+      </div>
       </div>
     </div>
   );

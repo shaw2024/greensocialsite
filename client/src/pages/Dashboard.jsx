@@ -20,31 +20,21 @@ export default function Dashboard() {
   ];
 
   return (
-    <div style={{ padding: "30px", maxWidth: "1000px", margin: "0 auto" }}>
+    <div className="page-container">
       {/* Welcome Header */}
-      <div style={{ 
-        background: "linear-gradient(135deg, #2d5a27, #4a7c59)", 
-        color: "white", 
-        padding: "30px", 
-        borderRadius: "12px", 
-        marginBottom: "30px",
+      <div className="card" style={{ 
+        background: "linear-gradient(135deg, var(--primary-green), #4a7c59)", 
+        color: "var(--white)", 
         textAlign: "center"
       }}>
-        <h1 style={{ margin: "0 0 10px 0", fontSize: "2.5rem" }}>
-          Welcome back, {username}! 🌍
-        </h1>
+        <h1>Welcome back, {username}! 🌍</h1>
         <p style={{ margin: 0, fontSize: "1.1rem", opacity: 0.9 }}>
           Connect with eco-warriors, share green living tips, and make a positive impact together
         </p>
       </div>
 
       {/* Quick Stats */}
-      <div style={{ 
-        display: "grid", 
-        gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", 
-        gap: "20px", 
-        marginBottom: "30px" 
-      }}>
+      <div className="grid-4">
         {[
           { label: "Community Members", value: quickStats.totalMembers, icon: "👥" },
           { label: "Active Today", value: quickStats.activeToday, icon: "🟢" },
@@ -69,13 +59,9 @@ export default function Dashboard() {
       </div>
 
       {/* Quick Actions */}
-      <div style={{ marginBottom: "30px" }}>
-        <h2 style={{ color: "#2d5a27", marginBottom: "20px" }}>Quick Actions</h2>
-        <div style={{ 
-          display: "grid", 
-          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", 
-          gap: "15px" 
-        }}>
+      <div className="card">
+        <h2 style={{ color: "var(--primary-green)" }}>Quick Actions</h2>
+        <div className="grid-2">
           {[
             { title: "Share Your Story", description: "Post about your green living journey", link: "/feed", icon: "📝", color: "#2d5a27" },
             { title: "Ask the Community", description: "Get help with sustainability questions", link: "/new", icon: "❓", color: "#4a7c59" },

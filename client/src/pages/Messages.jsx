@@ -108,19 +108,19 @@ export default function Messages() {
   );
 
   return (
-    <div style={{ 
+    <div className="page-container" style={{ 
       display: "grid", 
-      gridTemplateColumns: "350px 1fr", 
-      height: "calc(100vh - 100px)", 
+      gridTemplateColumns: "minmax(280px, 350px) 1fr", 
+      height: "calc(100vh - var(--mobile-header-height, 100px))", 
       maxWidth: "1200px", 
       margin: "0 auto",
       gap: "1px",
-      background: "#e0e0e0",
-      borderRadius: "12px",
+      background: "var(--border-light)",
+      borderRadius: "var(--border-radius)",
       overflow: "hidden"
     }}>
       {/* Conversations Sidebar */}
-      <div style={{ background: "white", display: "flex", flexDirection: "column" }}>
+      <div style={{ background: "var(--white)", display: "flex", flexDirection: "column" }}>
         {/* Header */}
         <div style={{ 
           padding: "20px", 

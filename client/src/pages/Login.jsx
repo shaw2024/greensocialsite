@@ -99,12 +99,14 @@ export default function Login() {
         }}>
           <h3 style={{ margin: "0 0 8px 0", fontSize: "1.1rem" }}>🚀 Try Demo</h3>
           <button
-            onClick={(e) => {
+            onClick={async (e) => {
               e.preventDefault();
-              // Directly set auth state
-              localStorage.setItem('token', 'demo-token');
-              localStorage.setItem('username', 'demo');
-              window.location.href = '/';
+              try {
+                await dispatch(login({ username: "demo", password: "password123" })).unwrap();
+                navigate("/dashboard");
+              } catch (err) {
+                console.error("Demo login failed:", err);
+              }
             }}
             style={{
               background: "var(--white)",

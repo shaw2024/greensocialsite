@@ -83,7 +83,7 @@ export default function Layout() {
           Social
         </h4>
         <div className="nav-section">
-          <Link to="/" className="nav-link" onClick={mobile ? closeMobileMenu : undefined}>
+          <Link to="/dashboard" className="nav-link" onClick={mobile ? closeMobileMenu : undefined}>
             🏠 Dashboard
           </Link>
           <Link to="/feed" className="nav-link" onClick={mobile ? closeMobileMenu : undefined}>
@@ -186,7 +186,7 @@ export default function Layout() {
                 localStorage.setItem('token', 'demo-token');
                 localStorage.setItem('username', 'demo');
                 if (mobile) closeMobileMenu();
-                window.location.href = '/';
+                window.location.href = '/dashboard';
               }}
               style={{
                 color: 'var(--white)',

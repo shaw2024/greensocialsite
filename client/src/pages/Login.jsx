@@ -90,48 +90,35 @@ export default function Login() {
         
         {/* Bypass Signin Box */}
         <div style={{ 
-          marginTop: "20px", 
-          padding: "20px", 
+          marginTop: "15px", 
+          padding: "15px", 
           background: "linear-gradient(135deg, var(--primary-green), #4a7c59)", 
           color: "var(--white)", 
-          borderRadius: "8px", 
-          textAlign: "center",
-          boxShadow: "0 4px 12px rgba(45, 90, 39, 0.3)"
+          borderRadius: "6px", 
+          textAlign: "center"
         }}>
-          <h3 style={{ margin: "0 0 10px 0", fontSize: "1.2rem" }}>🚀 Quick Access</h3>
-          <p style={{ margin: "0 0 15px 0", fontSize: "0.9rem", opacity: 0.9 }}>
-            Skip the login and explore the social features instantly!
-          </p>
+          <h3 style={{ margin: "0 0 8px 0", fontSize: "1.1rem" }}>🚀 Try Demo</h3>
           <button
-            onClick={() => {
-              // Auto-fill and submit the form
-              setFormData({ username: 'demo', password: 'password123' });
-              setTimeout(() => {
-                document.querySelector('form').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
-              }, 100);
+            onClick={(e) => {
+              e.preventDefault();
+              // Directly set auth state
+              localStorage.setItem('token', 'demo-token');
+              localStorage.setItem('username', 'demo');
+              window.location.href = '/';
             }}
             style={{
               background: "var(--white)",
               color: "var(--primary-green)",
               border: "none",
-              padding: "12px 24px",
-              borderRadius: "6px",
+              padding: "10px 20px",
+              borderRadius: "4px",
               fontWeight: "bold",
-              fontSize: "1rem",
+              fontSize: "0.9rem",
               cursor: "pointer",
-              transition: "all 0.3s ease",
-              boxShadow: "0 2px 4px rgba(0,0,0,0.1)"
-            }}
-            onMouseOver={(e) => {
-              e.target.style.transform = "translateY(-2px)";
-              e.target.style.boxShadow = "0 4px 8px rgba(0,0,0,0.2)";
-            }}
-            onMouseOut={(e) => {
-              e.target.style.transform = "translateY(0)";
-              e.target.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
+              width: "100%"
             }}
           >
-            🌱 Enter GreenSocialSite Now
+            🌱 Enter Now
           </button>
         </div>
       </div>

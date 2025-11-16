@@ -56,25 +56,27 @@ export default function Layout() {
       {mobile && (
         <div style={{ 
           textAlign: 'center', 
-          paddingBottom: 'var(--spacing-lg)', 
+          paddingBottom: 'var(--spacing-md)', 
           borderBottom: '1px solid var(--border-light)', 
-          marginBottom: 'var(--spacing-lg)' 
+          marginBottom: 'var(--spacing-md)' 
         }}>
-          <h3 style={{ margin: '0 0 var(--spacing-xs) 0', color: 'var(--primary-green)', fontSize: '1.3rem' }}>
+          <h3 style={{ margin: '0 0 4px 0', color: 'var(--primary-green)', fontSize: '1.1rem' }}>
             🌱 Menu
           </h3>
-          <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-            {username ? <>Welcome, <strong>{username}</strong></> : <>Hello, Guest</>}
-          </div>
+          {username && (
+            <div style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>
+              Hi, <strong>{username}</strong>
+            </div>
+          )}
         </div>
       )}
 
       {/* Social Navigation */}
       <nav>
         <h4 style={{ 
-          margin: '0 0 12px 0', 
+          margin: '0 0 8px 0', 
           color: 'var(--text-secondary)', 
-          fontSize: '0.9rem', 
+          fontSize: '0.8rem', 
           textTransform: 'uppercase',
           fontWeight: '600'
         }}>
@@ -181,16 +183,14 @@ export default function Layout() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             <button
               onClick={() => {
-                // Auto-login as demo user
                 localStorage.setItem('token', 'demo-token');
                 localStorage.setItem('username', 'demo');
-                window.location.reload();
                 if (mobile) closeMobileMenu();
+                window.location.href = '/';
               }}
               style={{
-                textDecoration: 'none',
                 color: 'var(--white)',
-                background: 'linear-gradient(135deg, var(--primary-green), #4a7c59)',
+                background: 'var(--primary-green)',
                 padding: '10px 12px',
                 borderRadius: 'var(--border-radius-sm)',
                 textAlign: 'center',
@@ -198,10 +198,10 @@ export default function Layout() {
                 fontWeight: 'bold',
                 border: 'none',
                 cursor: 'pointer',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                width: '100%'
               }}
             >
-              🚀 Quick Access Demo
+              🚀 Try Demo
             </button>
             <Link
               to="/login"
@@ -291,7 +291,7 @@ export default function Layout() {
             transform: mobileMenuOpen ? 'rotate(-45deg) translate(7px, -6px)' : 'none'
           }}></span>
         </button>
-        <h2 style={{ color: 'var(--primary-green)', margin: 0, fontSize: '1.2rem' }}>
+        <h2 style={{ color: 'var(--primary-green)', margin: 0, fontSize: '1rem' }}>
           🌱 GreenSocialSite
         </h2>
         <div style={{ width: '40px' }}></div>

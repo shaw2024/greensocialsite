@@ -27,16 +27,15 @@ export default function Dashboard() {
         <div style={{
           background: "linear-gradient(45deg, #ffd700, #ffed4a)",
           color: "#333",
-          padding: "12px 20px",
-          borderRadius: "8px",
-          marginBottom: "20px",
+          padding: "8px 15px",
+          borderRadius: "6px",
+          marginBottom: "15px",
           textAlign: "center",
-          border: "1px solid #f7dc00",
-          boxShadow: "0 2px 8px rgba(255, 215, 0, 0.3)"
+          fontSize: "0.9rem"
         }}>
-          <strong>🎉 Demo Mode Active!</strong> You're exploring GreenSocialSite with full access to all features. 
-          <Link to="/register" style={{ marginLeft: "10px", color: "#2d5a27", fontWeight: "bold" }}>
-            Create Account →
+          <strong>🎉 Demo Mode!</strong> 
+          <Link to="/register" style={{ marginLeft: "8px", color: "#2d5a27", fontWeight: "bold" }}>
+            Sign Up
           </Link>
         </div>
       )}
@@ -47,9 +46,9 @@ export default function Dashboard() {
         color: "var(--white)", 
         textAlign: "center"
       }}>
-        <h1>Welcome{username ? ` back, ${username}` : " to GreenSocialSite"}! 🌍</h1>
-        <p style={{ margin: 0, fontSize: "1.1rem", opacity: 0.9 }}>
-          Connect with eco-warriors, share green living tips, and make a positive impact together
+        <h1>Welcome{username ? ` back, ${username}` : ""}! 🌍</h1>
+        <p style={{ margin: 0, fontSize: "1rem", opacity: 0.9 }}>
+          Connect, share, and make a positive impact
         </p>
         {!username && (
           <div style={{ marginTop: "20px" }}>

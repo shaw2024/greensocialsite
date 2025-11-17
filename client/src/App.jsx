@@ -17,13 +17,15 @@ import Messages from "./pages/Messages";
 export default function App() {
   return (
     <Routes>
-      {/* Public routes */}
+      {/* Default redirect to login */}
+      <Route path="/" element={<Navigate to="/login" replace />} />
+      
+      {/* Public routes - no layout */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       
       {/* Protected routes with layout */}
       <Route element={<Layout />}>
-        <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/feed" element={<ProtectedRoute><Feed /></ProtectedRoute>} />

@@ -7,6 +7,10 @@ import store from "./store";
 import "./index.css";
 
 function bootstrap() {
+  // Clear any existing authentication to ensure fresh start
+  localStorage.removeItem('token');
+  localStorage.removeItem('username');
+  
   // Render the app - user will see login page by default
   createRoot(document.getElementById("root")).render(
     <React.StrictMode>

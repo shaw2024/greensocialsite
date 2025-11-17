@@ -1,10 +1,18 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../features/auth/authSlice";
 
 export default function Dashboard() {
   const username = useSelector((s) => s.auth.username);
   const isDemo = username === 'demo';
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    dispatch(logout());
+    navigate('/login');
+  };
   
   const quickStats = {
     totalMembers: 1247,
@@ -37,6 +45,57 @@ export default function Dashboard() {
           <Link to="/register" style={{ marginLeft: "8px", color: "#2d5a27", fontWeight: "bold" }}>
             Sign Up
           </Link>
+        </div>
+      )}
+      
+      {/* User Profile Section with Sign Out */}
+      {username && (
+        <div className="card" style={{ 
+          display: "flex", 
+          justifyContent: "space-between", 
+          alignItems: "center",
+          padding: "15px 20px",
+          background: "var(--white)",
+          border: "1px solid var(--border-light)"
+        }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <div style={{ 
+              width: "40px", 
+              height: "40px", 
+              borderRadius: "50%", 
+              background: "var(--primary-green)", 
+              display: "flex", 
+              alignItems: "center", 
+              justifyContent: "center",
+              color: "white",
+              fontSize: "1.2rem"
+            }}>
+              👤
+            </div>
+            <div>
+              <div style={{ fontWeight: "bold", color: "var(--primary-green)" }}>{username}</div>
+              <div style={{ fontSize: "0.8rem", color: "var(--text-secondary)" }}>
+                {isDemo ? "Demo User" : "Community Member"}
+              </div>
+            </div>
+          </div>
+          <button
+            onClick={handleSignOut}
+            style={{
+              background: "var(--primary-green)",
+              color: "white",
+              border: "none",
+              padding: "8px 16px",
+              borderRadius: "6px",
+              cursor: "pointer",
+              fontSize: "0.9rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "6px"
+            }}
+          >
+            🚪 Sign Out
+          </button>
         </div>
       )}
       
